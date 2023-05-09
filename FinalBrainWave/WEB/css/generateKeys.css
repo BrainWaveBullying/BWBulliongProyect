@@ -1,0 +1,157 @@
+/* ESTILOS BASE */
+
+*{ 
+    padding: 0;
+    font-family:Arial, sans-serif;
+}
+
+html {
+    min-height: flex;
+    display: flex;
+    position: relative;
+    background-image: url("images/fondodos.webp");
+    background-size: cover;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: justify;
+    color: #00175ae0;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex-direction: column;
+    justify-content: first baseline;
+    align-items:stretch;
+    justify-content: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+    margin:20px;
+    margin-top: 50px;
+    padding: 0;
+    position: relative;
+    min-height: 100vh;
+    padding-bottom: 50px;
+  
+}
+
+#masterWrapper, #body, #submitKeys  { /*Los 3 contenedores*/
+    margin: 50px;
+    
+}
+
+#masterWrapper{
+    display: flex;
+    justify-content: space-around;
+    
+}
+  
+/* ESTILOS BUTTONS */
+
+#submitKeys {
+    background-color: #ffffffe0;
+    color: #00175ae0;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    justify-content: center;
+
+}
+
+#submitKeys:hover {
+    background-color: #00175ae0;
+    color: white;
+}
+
+/* 
+- selctorCurso: Clase para acceder a los selectores principales
+- selectorAula: Clase para acceder a los selectores de aula (las reglas se aplicaran cuando se creen)
+- selectorAlumnos: Clase para acceder a los selectores de alumnos (las reglas se aplicaran cuando se creen)
+
+- lo mismo para los label
+
+- selectorCurso option: Accedes a los elementos del desplegable
+--> TRUCO: Puedes concatenar como una ruta padre>hijo>hijo para acceder a lo que quieras
+--> Aunque no tenga atributo id o class, puedes acceder a las etiquetas html por ejemplo para acceder al desplegable de alumnos:
+------> .selectorAlumnos option (es decir clase + etiqueta)
+
+--> TRUCO: Tambien puedes dar formato a todos los option del contenedor principal de golpe:
+------> #masterWrapper option (de esta forma todos los option dentro de ese elemento tendran el formato que le des, 
+        a menos que lo sobreescribas desde un elemento padre mas cercano.
+
+
+*/
+.selectorCurso {
+    background-color: #ffffff;
+    color: #00175ae0;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.selectorCurso:focus {
+    background-color: #00175ae0;
+    color: #fff; 
+    outline: none;
+  }
+
+.selectorAula {
+    background-color: #ffffff;
+    color: #00175ae0;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.selectorAula:focus {
+    background-color: #00175ae0; /* un tono aún más oscuro de fondo cuando se selecciona */
+    color: #fff; /* color de texto claro para que resalte */
+    outline: none; /* eliminar el borde de enfoque predeterminado */
+}
+
+.selectorAlumnos {
+    background-color: #ffffff;
+    color: #00175ae0;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.selectorAlumnos:focus {
+    background-color: #00175ae0;
+    color: #fff; 
+    outline: none; 
+}
+
+
+.labelCurso{
+    color: #00175ae0;
+    
+}
+
+.labelAula{
+    color:#00175ae0;
+    
+}
+
+footer {
+    padding: 0;
+    margin-top: auto;
+    box-sizing: border-box;
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- CHARSET -->
+    <meta charset="UTF-8">
+    <!-- IE-EDGE -->
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <!-- VIEWPORT -->
+    <meta name="viewport" content="width-device-width, initial-scale=1.0">
+    <!-- DESCRIPTION -->
+    <meta name="description" content="Brain_Wave">
+    <!-- AUTHOR -->
+    <meta name="author" content="Brain_Wave">
+    <!-- TITLE -->
+    <title>Resultados</title>
+    <!-- STYLES -->
+    <link rel="stylesheet" href="../css/Resultados.css"> <!--crear el css con este nombre-->
+    <link rel="stylesheet" href="../css/master.css">
+    <!-- FONT -->
+    <script> src="//code.jquery.com/jquery-1.11.0.min.js"</script>
+    <script src="https://cdn.sheetjs.com/xlsx-0.19.3/package/dist/xlsx.full.min.js"></script>
+
+</head>
+<body>
+    <div id="container">
+        <div id="Resultados-container" align="center">
+            
+            <form method="post" id="resultados">
+                <div id="form_selectors">
+                    <div id="div_test_selector">
+                        <h2>Selecciona el test para ver los resultados</h2>
+                        <select id="test_id" name="test_id" required>
+                        </select>
+                    </div>
+                    <div id="div_order_selector">
+                        <h2>Selecciona como quieres ordenar los resultados</h2>
+                        <select id="test_order" name="test_order" required>
+                            <option align="center"  value="student_id">Ordenar por ID de alumno</option>
+                            <option align="center"  value="prediction">Ordenar por riesgo de sufrir bullying</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="form_buttons">
+                    <button type="submit" id="resultados-button">Ver resultados</button><br>
+                    <div id="spacebuttons"></div>
+                    <button id="exportButton">Exportar a Excel</button>
+                </div>
+            </form>
+            
+        </div>
+    </div>
+    <div id="displayContainer"></div>
+
+    <script src="../js/apiConnection.js"></script>
+    <script src="../js/validations.js"></script> 
+    <script src="../js/visualizationData.js"></script> 
+    <script>
+                
+        /*const data = {
+            "PRIMARIA": {
+                "CURSO1": {
+                "AULA1": {
+                    "01": {"prediccion": 27, "grupo": "A"},
+                    "02": {"prediccion": 27, "grupo": "A"},
+                    "03": {"prediccion": 19, "grupo": "B"}
+                },
+                "AULA2": {
+                    "01": {"prediccion": 15, "grupo": "A"},
+                    "02": {"prediccion": 21, "grupo": "B"}
+                },
+                "AULA3": {
+                    "01": {"prediccion": 22, "grupo": "A"},
+                    "02": {"prediccion": 20, "grupo": "B"}
+                }
+                },
+                "CURSO2": {
+                "AULA1": {
+                    "01": {"prediccion": 23, "grupo": "A"},
+                    "02": {"prediccion": 25, "grupo": "B"}
+                },
+                "AULA2": {
+                    "01": {"prediccion": 18, "grupo": "A"},
+                    "02": {"prediccion": 16, "grupo": "B"}
+                },
+                "AULA3": {
+                    "01": {"prediccion": 28, "grupo": "A"},
+                    "02": {"prediccion": 29, "grupo": "B"}
+                }
+                },
+                "CURSO3": {
+                "AULA1": {
+                    "01": {"prediccion": 30, "grupo": "A"},
+                    "02": {"prediccion": 15, "grupo": "B"}
+                },
+                "AULA2": {
+                    "01": {"prediccion": 21, "grupo": "A"},
+                    "02": {"prediccion": 19, "grupo": "B"}
+                }
+                }
+            },
+            "SECUNDARIA": {
+                "CURSO1": {
+                "AULA1": {
+                    "01": {"prediccion": 25, "grupo": "A"},
+                    "02": {"prediccion": 27, "grupo": "B"}
+                },
+                "AULA2": {
+                    "01": {"prediccion": 15, "grupo": "A"},
+                    "02": {"prediccion": 21, "grupo": "B"}
+                },
+                "AULA3": {
+                    "01": {"prediccion": 22, "grupo": "A"},
+                    "02": {"prediccion": 20, "grupo": "B"}
+                }
+                },
+                "CURSO2": {
+                "AULA1": {
+                    "01": {"prediccion": 23, "grupo": "A"},
+                    "02": {"prediccion": 25, "grupo": "B"}
+                },
+                "AULA2": {
+                    "01": {"prediccion": 18, "grupo": "A"},
+                    "02": {"prediccion": 16, "grupo": "B"}
+                }
+                }
+            },
+            "BACHILLERATO": {
+                "CURSO1": {
+                "AULA1": {
+                    "01": {"prediccion": 30, "grupo": "A"},
+                    "02": {"prediccion": 25, "grupo": "B"}
+                }
+                }
+        }};*/
+        
+        //-- Primero obtenemos la data para rellenar los options y crear los options
+        const token = checkAuthentication();
+        let response_data = "";
+        document.addEventListener('DOMContentLoaded', async () => {
+        try {
+            const response = await fetch('http://127.0.0.1:8000/profile', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}` // Reemplaza 'token' con tu token de acceso
+            }
+            });
+
+            const data = await response.json();
+            const select = document.getElementById("test_id")
+
+            data.dates.forEach(date => {
+            const option = document.createElement('option');
+            option.value = date;
+            option.textContent = date;
+            select.appendChild(option);
+            });
+
+            console.log(data);
+            
+        } catch (error) {
+            console.error(error);
+        }
+        });
+
+        //-- Ahora hacemos la peticion de informacion para el test seleccionado
+        document.getElementById('resultados').addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const test_val = document.getElementById("test_id").value;
+        const order_val = document.getElementById("test_order").value;
+        const authAndGetData = new ApiFormAuthRequest(`${base_endpoint}query`, {'order_by': order_val, 'date': test_val}, resultadosResponse);
+        response_data = await authAndGetData.postData();
+        
+        });
+
+        
+        
+        // -- Funcion que recibe la respuesta de la API y hace algo con ella
+        const resultadosResponse = (data) => {
+        console.log("Respuesta devuelta por la api")
+        console.log(data);
+        //-- Construimos la visualizacion de datos y añadimos el evento de exportar a excel al boton
+        const school = new SchoolInfo2(data);
+
+        document.getElementById("exportButton").addEventListener("click", () => {
+            school.exportToExcel2();
+        });
+        };
+    
+      </script>
+  </body>
+    
+  <footer class="footer">
+    <link rel="icon" type="image/logo.png" href="imagenes/logo.png">
+    <p> Brain Wave | Improving the future</p>
+    
+    <div class="social-icon">
+        <a href="#" target="_blank" rel="noopener noreferrer"><i class="fs-4 fab fa-instagram"></i></a>
+        <a href="#" target="_blank" rel="noopener noreferrer"><i class="fs-4 fab fa-twitter"></i></a>
+        <a href="#" target="_blank" rel="noopener noreferrer"><i class="fs-4 fab fa-linkedin"></i></a>
+    </div>
+</footer>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html> <!--ESTO NO FUNCIONA ES UNA PRUEBA DE TESTEO-->
+<html>
+  <head>
+    <!-- CHARSET -->
+    <meta charset="UTF-8">
+    <!-- IE-EDGE -->
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <!-- VIEWPORT -->
+    <meta name="viewport" content="width-device-width, initial-scale=1.0">
+    <!-- DESCRIPTION -->
+    <meta name="description" content="Brain_Wave">
+    <!-- AUTHOR -->
+    <meta name="author" content="Brain_Wave">
+    <!-- TITLE -->
+    <title>Test</title>
+    <!-- STYLES -->
+    <link rel="stylesheet" href="../css/test.css"> <!--crear el css con este nombre-->
+    <link rel="stylesheet" href="../css/master.css">
+    <!-- FONT -->
+    <script> src="//code.jquery.com/jquery-1.11.0.min.js"</script>
+
+</head>
+<body>
+  <div id="masterWrapper", style="width: 90%; height: 50%; display: flex; justify-content: space-between;">
+    <div id="primaria" >
+      <h3>Primaria</h3>
+    </div>
+    <div id="secundaria">
+      <h3>secundaria</h3>
+    </div>
+    <div id="bachillerato">
+      <h3>bachillerato</h3>
+    </div>
+  </div>
+  <input type="submit", id="submitKeys", value="Enviar información">
+  <script src="../js/apiConnection.js"></script>
+  <script>
+
+    //- Instanciamos la clase (id del div que va a contener la info de primaria, nº max de cursos, nº max de aulas, nº max de alumnos)
+    const primaria = new GenerateDynamicKeys("primaria", 4, 8, 40);
+
+    //- Seleccionamos el div que va a contener la informacion de Secundaria e instanciamos la clase
+    const secundaria = new GenerateDynamicKeys("secundaria", 5, 8, 40);
+
+    //- Seleccionamos el div que va a contener la informacion de Secundaria e instanciamos la clase
+    const bachillerato = new GenerateDynamicKeys("bachillerato", 3, 8, 40);
+
+    const botonEnviar = document.getElementById("submitKeys");
+    botonEnviar.addEventListener("click", () => {
+      const datosPrimaria = primaria.obtenerDatos();
+      const datosSecundaria = secundaria.obtenerDatos();
+      const datosBachillerato = bachillerato.obtenerDatos();
+
+      const dataToApi = {"PRIMARIA": datosPrimaria,
+                        "SECUNDARIA": datosSecundaria,
+                        "BACHILLERATO": datosBachillerato}
+
+      console.log("PRIMARIA:", datosPrimaria);
+      console.log("SECUNDARIA:", datosSecundaria);
+      console.log("SECUNDARIA:", datosBachillerato);
+
+      console.log("JSON COMPLETO:", dataToApi)
+    })
+
+  </script>
+</body>
+<footer class="footer">
+  <link rel="icon" type="image/logo.png" href="imagenes/logo.png">
+  <p> Brain Wave | Improving the future </p>
+  
+  <div class="social-icon">
+      <a href="#" target="_blank" rel="noopener noreferrer"><i class="fs-4 fab fa-instagram"></i></a>
+      <a href="#" target="_blank" rel="noopener noreferrer"><i class="fs-4 fab fa-twitter"></i></a>
+      <a href="#" target="_blank" rel="noopener noreferrer"><i class="fs-4 fab fa-linkedin"></i></a>
+  </div>
+</footer>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- CHARSET -->
+    <meta charset="UTF-8">
+    <!-- IE-EDGE -->
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <!-- VIEWPORT 
+    <meta name="viewport" content="width-device-width, initial-scale=1.0">-->
+    <!-- DESCRIPTION -->
+    <meta name="description" content="Brain_Wave">
+    <!-- AUTHOR -->
+    <meta name="author" content="Brain_Wave">
+    <!-- TITLE -->
+    <title>Claves</title>
+    <!-- STYLES -->
+    <link rel="stylesheet" href="../css/generateKeys.css"> <!--crear el css con este nombre-->
+    <link rel="stylesheet" href="../css/master.css">
+    <!-- FONT -->
+    <script> src="//code.jquery.com/jquery-1.11.0.min.js"</script>
+
+</head>
+<body>
+  <div id="masterWrapper" >
+    <div id="primaria" >
+      <h3>Primaria</h3>
+    </div>
+    <div id="secundaria">
+      <h3>secundaria</h3>
+    </div>
+    <div id="bachillerato">
+      <h3>bachillerato</h3>
+    </div>
+  </div>
+  <input type="submit", id="submitKeys", value="Enviar información">
+  <script src="../js/apiConnection.js"></script>
+  <script src="../js/validations.js"></script>
+  <script>
+
+    //- Instanciamos la clase (id del div que va a contener la info de primaria, nº max de cursos, nº max de aulas, nº max de alumnos)
+    const primaria = new GenerateDynamicKeys("primaria", 4, 8, 40);
+
+    //- Seleccionamos el div que va a contener la informacion de Secundaria e instanciamos la clase
+    const secundaria = new GenerateDynamicKeys("secundaria", 5, 8, 40);
+
+    //- Seleccionamos el div que va a contener la informacion de Secundaria e instanciamos la clase
+    const bachillerato = new GenerateDynamicKeys("bachillerato", 3, 8, 40);
+
+    //-- Se define lo que va a ocurrir cuando se pulse en enviar informacion
+    const botonEnviar = document.getElementById("submitKeys");
+    
+    botonEnviar.addEventListener("click", async (e) => {
+      e.preventDefault();
+      const datosPrimaria = primaria.obtenerDatos();
+      const datosSecundaria = secundaria.obtenerDatos();
+      const datosBachillerato = bachillerato.obtenerDatos();
+
+      const dataToApi = {"PRIMARIA": datosPrimaria,
+                        "SECUNDARIA": datosSecundaria,
+                        "BACHILLERATO": datosBachillerato}
+
+      //console.log("PRIMARIA:", datosPrimaria);
+      //console.log("SECUNDARIA:", datosSecundaria);
+      //console.log("SECUNDARIA:", datosBachillerato);
+
+      console.log("JSON COMPLETO:", dataToApi)
+      
+      //-- Llamamos a popupConfirmKeys para que el usuario valide las claves, si todo esta en orden 
+      popupConfirmKeys("Estas son las claves que vas a generar:", dataToApi, "Confirmar", confirmData, "Volver", doNothing)
+
+      //-- Llamada a la API (instancia de la clase que esta en apiConnections.js)
+      async function confirmData(){
+        
+        const apiRequest = new ApiFormAuthRequest(`${base_endpoint}survey/applicate_id`, dataToApi, keysResponse);
+        await apiRequest.postData();
+        
+      }
+
+      async function doNothing(){
+        console.log("")
+      }
+
+    })
+
+    //-- TODO: Funcion que recibe la respuesta de la api
+    const keysResponse = (data) => {
+        console.log("Respuesta devuelta por la api")
+        console.log(data);
+        // Redirigir a otra página
+        window.location.href = "../assets/successKeys.html";
+
+      };
+
+  </script>
+</body>
+<footer class="footer">
+  <link rel="icon" type="image/logo.png" href="imagenes/logo.png">
+  <p> Brain Wave | Improving the future </p>
+  
+  <div class="social-icon">
+      <a href="#" target="_blank" rel="noopener noreferrer"><i class="fs-4 fab fa-instagram"></i></a>
+      <a href="#" target="_blank" rel="noopener noreferrer"><i class="fs-4 fab fa-twitter"></i></a>
+      <a href="#" target="_blank" rel="noopener noreferrer"><i class="fs-4 fab fa-linkedin"></i></a>
+  </div>
+</footer>
+</html>

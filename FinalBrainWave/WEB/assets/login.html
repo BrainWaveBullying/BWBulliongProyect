@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- CHARSET -->
+    <meta charset="UTF-8">
+    <!-- IE-EDGE -->
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <!-- VIEWPORT -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- DESCRIPTION -->
+    <meta name="description" content="Brain_Wave">
+    <!-- AUTHOR -->
+    <meta name="author" content="Brain_Wave">
+    <!-- TITLE -->
+    <title>Login or Create</title>
+    <!-- STYLES -->
+    <link rel="stylesheet" href="../css/login.css"> <!--crear el css con este nombre-->
+    <link rel="stylesheet" href="../css/master.css">
+    
+</head>
+<body>
+  <div id="login-container" align="center">
+    <h2>Login</h2>
+    <form method="post" id="login" >
+      <input type="text" name="username" id="username" placeholder="CIF" autocomplete="off" required><br>
+      <input type="password" name="password" id="password" placeholder="Contraseña" autocomplete="off" required ><br><br>
+      <button type="submit" id="loginButton">Entrar</button>
+    </form>
+  </div>
+
+  <div id="create-container" align="center">
+    <h2>Create Account</h2>
+    <form method="post" id="formdata" >
+      <input type="text" name="desc_school" id="desc_school" placeholder="Nombre del centro" autocomplete="off" required><br>
+      <input type="text" name="cif" id="cif" placeholder="CIF" autocomplete="off" required><br>
+      <input type="text" name="phone" id="phone" placeholder="Teléfono" autocomplete="off" required><br>
+      <input type="text" name="email" id="email" placeholder="Email" autocomplete="off" required><br>
+      <input type="text" name="codigo" id="zip_code" placeholder="Código postal" autocomplete="off" required><br>
+      <input type="password" name="password" id="password2" placeholder="Contraseña" autocomplete="off" required><br>
+      <input type="text" name="country_id" id="country_id" placeholder="País" autocomplete="off" required><br>
+      <input type="text" name="city" id="city" placeholder="Ciudad" autocomplete="off" required><br>
+
+      <label for="opciones"  align="center" > Selecciona:</label>
+      <select id="type_id" name="type_id" required>
+        <option align="center"  value="Public">Público</option>
+        <option align="center"  value="Concertado">Concertado</option>
+        <option align="center"  value="Private">Privado</option>
+      </select><br><br>
+
+      <button type="submit" id="createButton"> Crear </button><br>
+    </form>
+  </div>
+
+  <script src="../js/apiConnection.js"></script> 
+  <script src="../js/validations.js"></script> 
+
+  <!--###########################################    SCRIPT DE LOGIN    ###################################################### -->
+  <script>
+
+  /**
+  * 
+  * IMPORTANTE: Este bloque es el que se va a ejecutar al pulsar en 'Enviar'
+  * 
+  * -- 1: Se almacenan los valores del formulario en las constantes que creamos
+  * -- 2: Esas constantes se almacenan en un diccionario json
+  * -- 3: Se instancia la clase que interactua con API pasandole (endpoint, diccionario, funcion que recibe respuesta)
+  * -- 4. Se ejecuta la peticion por POST
+  */
+    
+    document.getElementById('login').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      //-- Funcion de validacion
+      const errors = validateLogin()
+
+      if (errors.length != 0){
+        popup("Error de login", errors)
+      }
+      
+      else{
+        const username = event.target.username.value;
+        const password = event.target.password.value;
+
+        const auth = new ApiLoginAndGetTokenRequest(username, password, `${base_endpoint}token`, '../assets/centro.html');
+        await auth.login();
+      }
+    });
+    
+
+ 
+  </script>
+
+  <!--###########################################    SCRIPT DE REGISTRO    ###################################################### -->
+  <script>
+    /**
+       * IMPORTANTE: Este bloque es el que se va a ejecutar al pulsar en 'Enviar'
+       * 
+       * -- 1: Se almacenan los valores del formulario en las constantes que creamos
+       * -- 2: Esas constantes se almacenan en un diccionario json
+       * -- 3: Se instancia la clase que interactua con API pasandole (endpoint, diccionario, funcion que recibe respuesta)
+       * -- 4. Se ejecuta la peticion por POST
+      */
+      document.getElementById("formdata").addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        //-- Constantes del formulario de registro
+        const desc_school = document.getElementById("desc_school").value;
+        const cif = document.getElementById("cif").value;
+        const phone = document.getElementById("phone").value;
+        const email = document.getElementById("email").value;
+        const zip_code = document.getElementById("zip_code").value.toString();
+        const password = document.getElementById("password2").value;
+        const country_id = document.getElementById("country_id").value;
+        const city = document.getElementById("city").value;
+        const type_id = document.getElementById("type_id").value;
+
+        // -- Diccionario que almacena los valores anteriores y que se enviara a la API
+        const sendData = {
+          desc_school: desc_school,
+          cif: cif,
+          phone: phone,
+          email: email,
+          zip_code: zip_code,
+          password: password,
+          country_id: country_id,
+          city: city,
+          type_id: type_id
+        };
+        console.log("Datos recogidos en el html:")
+        console.log(sendData)
+
+        //-- Funcion de validacion
+        const errors = validateRegister()
+
+        if (errors.length != 0){
+          popup("Error de login", errors)
+        }
+        else{
+          //-- Llamada a la API (instancia de la clase que esta en apiConnections.js) es la unica que va sin auth token
+          const apiRequest = new ApiFormRequest(`${base_endpoint}register`, sendData, registerResponse);
+          await apiRequest.postData();
+        }
+      });
+
+      // -- Funcion que recibe la respuesta de la API y hace algo con ella
+      const registerResponse = (data) => {
+        console.log("Respuesta devuelta por la api")
+        console.log(data);
+        // Redirigir a otra página
+        window.location.href = "../assets/successful.html";
+      };
+
+  </script>
+
+</footer>
+</html>
+
+
+  </body>
+  <footer class="footer">
+    <link rel="icon" type="image/logo.png" href="imagenes/logo.png">
+    <p> Brain Wave | Improving the future</p>
+    
+    <div class="social-icon">
+        <a href="#" target="_blank" rel="noopener noreferrer"><i class="fs-4 fab fa-instagram"></i></a>
+        <a href="#" target="_blank" rel="noopener noreferrer"><i class="fs-4 fab fa-twitter"></i></a>
+        <a href="#" target="_blank" rel="noopener noreferrer"><i class="fs-4 fab fa-linkedin"></i></a>
+    </div>
+</footer>
+</html>

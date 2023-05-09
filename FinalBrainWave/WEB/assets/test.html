@@ -1,0 +1,118 @@
+<!DOCTYPE html> <!--ESTO NO FUNCIONA ES UNA PRUEBA DE TESTEO-->
+<html>
+  <head>
+    <!-- CHARSET -->
+    <meta charset="UTF-8">
+    <!-- IE-EDGE -->
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <!-- VIEWPORT -->
+    <meta name="viewport" content="width-device-width, initial-scale=1.0">
+    <!-- DESCRIPTION -->
+    <meta name="description" content="Brain_Wave">
+    <!-- AUTHOR -->
+    <meta name="author" content="Brain_Wave">
+    <!-- TITLE -->
+    <title>Test</title>
+    <!-- STYLES -->
+    <link rel="stylesheet" href="../css/test.css"> <!--crear el css con este nombre-->
+    <link rel="stylesheet" href="../css/master.css">
+    <!-- FONT -->
+    <script> src="//code.jquery.com/jquery-1.11.0.min.js"</script>
+
+</head>
+<body>
+  <div id="form-container">
+    <form method="post" id="test-login">
+      <input type="text" name="username" id="student-id" placeholder="Introduce tu clave, por ejemplo: 2023446SEC2Au2006" autocomplete="off" required>
+      <button type="submit" id="studentLoginButton">Comenzar Test</button>
+    </form>
+  </div>
+  <div id="quiz-container">
+    <h3 id="question-text"></h3>
+    <select id="answer-select"></select>
+    <button id="next-button">Siguiente</button>
+  </div>
+  <div id="thanks-container" style="display: none;">
+    <p id="thanks-message"></p>
+    <button id="home-button">Volver a inicio</button>
+  </div>
+  <script src="../js/apiConnection.js"></script>
+  <script src="../js/validations.js"></script> 
+  <script>
+
+    
+    let eventFired = false;
+
+    document.getElementById('test-login').addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+    if (!eventFired) {
+        eventFired = true;
+
+        //-- Funcion de validacion
+        const errors = validateStudentLogin()
+
+        if (errors.length != 0){
+          popup("Error de login", errors)
+        } else {
+          //-- Pongo el mismo valor a usuario y contraseña para generar el token con la misma funcion
+          startTest();
+          document.getElementById("studentLoginButton");
+        }
+      }
+    });
+
+      function startTest(){
+        const username = event.target.username.value;
+        const quizApp = new QuizApp(
+          username,
+          "question-text",
+          "answer-select",
+          "next-button",
+          "thanks-container",
+          "home-button",
+          'http://127.0.0.1:8000/',
+          "survey/questions/",
+          "survey/submit"
+        );
+      }
+    
+
+    /*
+    if (debug_mode){
+      const quizApp = new QuizApp(
+        "question-text",
+        "answer-select",
+        "next-button",
+        "thanks-container",
+        "home-button",
+        'http://127.0.0.1:8000/',
+        "questions",
+        "/submit-answers"
+      );
+    }
+    else{
+      const quizApp = new QuizApp(
+        "question-text",
+        "answer-select",
+        "next-button",
+        "thanks-container",
+        "home-button",
+        "'https://brainwave-382317.ew.r.appspot.com/",
+        "survey/{student_id}",
+        "survey/{student_id}/submit"
+      );
+    }*/
+  </script>
+</body>
+<footer class="footer">
+  <link rel="icon" type="image/logo.png" href="imagenes/logo.png">
+  <p> Brain Wave | Improving the future </p>
+  
+  <div class="social-icon">
+      <a href="#" target="_blank" rel="noopener noreferrer"><i class="fs-4 fab fa-instagram"></i></a>
+      <a href="#" target="_blank" rel="noopener noreferrer"><i class="fs-4 fab fa-twitter"></i></a>
+      <a href="#" target="_blank" rel="noopener noreferrer"><i class="fs-4 fab fa-linkedin"></i></a>
+  </div>
+</footer>
+</html>

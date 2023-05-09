@@ -1,0 +1,107 @@
+Metadata-Version: 2.1
+Name: brainwave-BullyingPredict
+Version: 0.1.0
+Summary: Este proyecto tiene como objetivo detectar casos de bullying en base a una encuesta
+Home-page: https://github.com/BrainWaveBullying/BullyingProject
+Author: Brain Wave
+License: UNKNOWN
+Platform: UNKNOWN
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+
+# BullynigProyectFull - Apache Beam Pipeline para la predicciÃ³n de bullying escolar y despliegue en GCP
+
+## 1 IntroducciÃ³n
+
+Este proyecto tiene como objetivo crear un pipeline de Apache Beam en Python para procesar datos de encuestas realizadas a alumnos y predecir si estÃ¡n siendo vÃ­ctimas de acoso escolar (bullying) o no.
+
+El pipeline se encarga de leer los datos de entrada desde un archivo en formato CSV, realizar una limpieza y transformaciÃ³n de los datos, y luego entrenar y testear un modelo de aprendizaje automÃ¡tico para generar las predicciones.
+
+Para este proyecto se ha utilizado Apache Beam, un modelo de programaciÃ³n de datos unificado que permite el procesamiento de grandes conjuntos de datos de manera eficiente y escalable. AdemÃ¡s, se ha utilizado Python como lenguaje de programaciÃ³n, lo que permite un fÃ¡cil acceso a diversas bibliotecas de aprendizaje automÃ¡tico y anÃ¡lisis de datos.
+
+## 2 Estructura del proyecto
+
+```
+Model_gcp/
+|---- __init__.py
+|---- preprocess.py
+|---- trainer.py
+|---- predict.py
+|---- setup.py
+|---- .env
+|---- requirements.txt
+|---- core/
+      |---- config.py
+      |---- utils.py
+```
+
+- __init__.py: indica que la carpeta es un paquete de Python.
+- preprocess.py: script que contiene funciones para el preprocesamiento de los datos de entrada del modelo.
+- trainer.py: script que contiene la lÃ³gica del entrenamiento del modelo de predicciÃ³n.
+- setup.py: fichero en donde se define los metadatos y las dependencias del proyecto de Python. Se incluye info sobre el proyecto
+- predict.py: script que contiene la lÃ³gica para hacer predicciones con el modelo entrenado.
+- .env: archivo de configuraciÃ³n que contiene variables de entorno.
+- requirements.txt: archivo que contiene una lista de dependencias del proyecto.
+- core/config.py: archivo que contiene la configuraciÃ³n principal del proyecto, como los parÃ¡metros de entrenamiento, los directorios de entrada/salida y las credenciales de acceso a los servicios de Google Cloud.
+
+Este proyecto realiza la trasnformaciÃ³n, entrenamiento y predicciÃ³n mediante un modelo de aprendizaje automÃ¡tico mediante Apache Beam , Google Cloud Dataflow , TensorFlow , TensorFlow_transforn y AI Platform
+
+Los pasos generales son:
+
+### 1. Preprocesasdo de los datos
+### 2. Entrenamiento del modelo
+### 3. Predicciones
+
+## 3 ConfiguraciÃ³n inicial del proyecto
+
+El proyecto esta preparado para poder ejecutarlo en modo local o en CGP mediante DataFlow. 
+
+### Clonar el repositorio
+
+Primeramente debe clonar el repositorio de git y navegar al directorio principal, mediante los siguientes comandos:
+
+```git clone https://github.com/BrainWaveBullying/BullyingProject.git
+cd BullyingProject/MODEL_GCP 
+```
+
+### Entorno virtual
+
+Ejecute lo siguiente para configurar y activar un nuevo entorno virtual:
+
+```
+python3.7 -m virtualenv env
+source env/bin/activate
+```
+
+### InstalaciÃ³n de las dependencias
+
+Puede realizar la instalaciÃ³n de las dependencias necesarias mediante el archivo requirements.txt mediante el siguiente comando:
+
+```
+pip install -r requirements.txt
+```
+
+## EjecuciÃ³n manual
+
+### Preprocesado
+
+CÃ³digo Fuente: preprocess.py
+
+En este fichero se genera un pipeline que realiza todo el preprocesado de los datos necesario para entrenar el modelo de Deep Learning. Los datos del dataset, son datos nÃºmericos, por lo que no es necesario un gran preprocesado. 
+Se ha utilizado TensorFlow-transform, para realizar el escalado de los datos, ya que se requiere de un pase completo de los mismos para poder realizar la transformaciÃ³n.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

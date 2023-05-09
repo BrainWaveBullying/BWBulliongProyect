@@ -1,0 +1,119 @@
+/* ESTILOS BASE */
+
+*{ 
+    padding: 0;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+html {
+    min-height: flex;
+    display: flex;
+    position: relative;
+    background-image: url("images/fondodos.webp");
+    background-size: cover;
+    overflow: hidden;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: justify;
+    color: #00175ae0;
+    border: none;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+    margin:20px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    padding: 0;
+  
+}
+ /* ESTILOS TEXTO */
+
+ #iniciar-container {
+    align-items: center;
+    text-align: center;
+;
+ }
+
+ .flotante {
+    position: relative;
+    top: -60%;
+    left: 0%;
+    transform: translate(-50%, 0%, 50%, 100%);
+    background-color: none;
+    font-size: 48px;
+    padding: 10;
+    border-radius: 5px;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
+
+.segundo {
+    position: relative;
+    top: -65%;
+    left: 50%;
+    opacity: 0;
+    transform: translate(-50%, 0%, 100%);
+    background-color: none;
+    font-size: 14px;
+    padding: 10;
+    border-radius: 5px;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  .tercero {
+    position: relative;
+    top: -60%;
+    left: 50%;
+    color: #00175ae0;
+    opacity: 0;
+    transform: translate(100%, 100%);
+    background-color: none;
+    font-size: 14px;
+    padding: 10;
+    border-radius: 5px;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+  }
+
+ 
+#init-button {
+    background-color: #ffffffe0;
+    color: #00175ae0;
+    border: none;
+    padding: 20px 20px;
+    font-size: 24px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    }
+
+#init-button:hover {
+background-color: #00175ae0;
+color: white;
+}
+
+
+
+  footer {
+    margin-top: 0px;
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+    height: 150px;
+    position: absolute;
+    bottom: 0;
+    color: #00175ae0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    box-sizing: border-box;
+  }

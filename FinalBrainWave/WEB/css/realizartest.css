@@ -1,0 +1,106 @@
+/* ESTILOS BASE */
+*{ 
+    padding: 0;
+    font-family:Arial, sans-serif;
+}
+
+html {
+    min-height: flex;
+    display: flex;
+    position: relative;
+    background-image: url("images/fondodos.webp");
+    background-size: cover;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  text-align: justify;
+  color: #00175ae0;
+  border: none;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  box-sizing: border-box;
+  margin:20px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  padding: 0;
+ 
+  }
+  /* ESTILOS BODY REALIZAR TEST */
+  #text-container, #realizar-continer {
+    margin: 40px;
+  }
+  #realizar-container {
+    display: flex;
+    justify-content: center; /* alinea horizontalmente */
+    align-items: center; /* alinea verticalmente */
+  }
+  
+  #text-container {
+    display: flex;
+    justify-content: center; /* alinea horizontalmente */
+    align-items: center; /* alinea verticalmente */
+    margin-top: -100px;
+  }
+
+  #realizar-button {
+    background-color: #ffffffe0;
+    color: #00175ae0;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+
+}
+
+#realizar-button:hover {
+    background-color: #00175ae0;
+    color: white;
+    }
+
+  #key {
+    background-color: #ffffff;
+    color: #000000;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  #school {
+    background-color: #ffffff;
+    color: #000000;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  #key, #school {
+    margin: 1px; /* añade un margen entre los botones */
+  }
+
+  footer {
+    margin-top: 0px;
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+    height: 150px;
+    position: absolute;
+    bottom: 0;
+    color: #00175ae0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    box-sizing: border-box;
+  }

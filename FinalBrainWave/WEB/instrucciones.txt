@@ -1,0 +1,10 @@
+1: Instalar el requirements.txt
+
+2: Levantar el servidor AGSI con uvicorn en la ubicacion donde estan los archivos:
+
+	- 2.1: Abres la terminal en la carpeta donde tienes el main.py y el index.html
+	- 2.2: escribes en la terminal: uvicorn main:app --reload
+
+3: Abres el index.html en el navegador (no hace falta live server si nada asi, solo el uvicorn levantado)
+
+4: Vas a inspeccionar>console y compruebas que todo funcione

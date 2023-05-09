@@ -1,0 +1,1 @@
+apache-beam[gcp]==2.46.0tensorflow==2.12.0tensorflow-transform==1.13.0tfx-bsl==1.13.0
