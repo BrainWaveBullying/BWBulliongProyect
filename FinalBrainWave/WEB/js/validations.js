@@ -4,7 +4,7 @@ function validateLogin() {
     
     //-- Validacion de cif
     const inputCif = document.getElementById('username');
-    if (inputCif.value.length != 9) {
+    if (inputCif.value.length != 8) {
       errores.push('El campo "CIF" debe contener 9 caracteres por ej: A12345678');
     }
 
@@ -29,7 +29,7 @@ function validateRegister(){
     
     //-- Validacion de cif
     const inputCif = document.getElementById('cif');
-    if (inputCif.value.length != 9) {
+    if (inputCif.value.length != 8) {
       errores.push('El campo "CIF" debe contener 9 caracteres por ej: A12345678');
     }
 
